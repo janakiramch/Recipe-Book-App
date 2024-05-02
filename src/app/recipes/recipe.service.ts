@@ -6,11 +6,13 @@ import { Subject } from 'rxjs';
 
 @Injectable()
 export class RecipeService {
+  recipesChanged = new Subject<Recipe[]>();
+
   private recipes: Recipe[] = [
     new Recipe(
       'A test Recipe',
       'This is simply a test',
-      'https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.onceuponachef.com%2Frecipes%2Fbest-pancake-recipe.html&psig=AOvVaw1f_kRiK1Q_giuZ9223GoLV&ust=1708114682566000&source=images&cd=vfe&opi=89978449&ved=0CBMQjRxqFwoTCKDwoZuVroQDFQAAAAAdAAAAABAJ',
+      'https://images.immediate.co.uk/production/volatile/sites/30/2020/08/chorizo-mozarella-gnocchi-bake-cropped-9ab73a3.jpg?quality=90&webp=true&resize=300,272',
       [new Ingredient('Meat', 1), new Ingredient('French Fries', 20)]
     ),
   ];
@@ -27,5 +29,20 @@ export class RecipeService {
 
   getRecipe(index: number) {
     return this.recipes.slice()[index];
+  }
+
+  addRecipe(recipe: Recipe) {
+    this.recipes.push(recipe);
+    this.recipesChanged.next(this.recipes.slice());
+  }
+
+  updateRecipe(index: number, newRecipe: Recipe) {
+    this.recipes[index] = newRecipe;
+    this.recipesChanged.next(this.recipes.slice());
+  }
+
+  deleteRecipe(index: number) {
+    this.recipes.splice(index, 1);
+    this.recipesChanged.next(this.recipes.slice());
   }
 }
