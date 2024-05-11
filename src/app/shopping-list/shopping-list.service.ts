@@ -1,14 +1,13 @@
 import { EventEmitter } from '@angular/core';
 import { Ingredient } from '../shared/ingredient.model';
 import { Subject } from 'rxjs';
+import { DataStorageService } from '../shared/data-storage.service';
 
 export class ShoppingListService {
   ingredientsChanged = new Subject<Ingredient[]>();
   startedEditing = new Subject<number>();
-  private ingredients: Ingredient[] = [
-    new Ingredient('Apples', 5),
-    new Ingredient('Tomatoes', 10),
-  ];
+  private dataStorageService: DataStorageService;
+  private ingredients: Ingredient[] = [];
 
   getIngredients() {
     return this.ingredients.slice();
@@ -25,7 +24,9 @@ export class ShoppingListService {
 
   addIngredients(ingredients: Ingredient[]) {
     this.ingredients.push(...ingredients);
+    console.log(this.ingredients);
     this.ingredientsChanged.next(this.ingredients.slice());
+    this.dataStorageService.storeShoppingListIngredients(this.ingredients);
   }
 
   updateIngredient(index: number, newIngredient: Ingredient) {

@@ -1,7 +1,8 @@
+<h3>{{ !editMode ? "Add" : "Edit" }} Recipe</h3>
 <div class="row">
   <div class="col-xs-12">
     <form [formGroup]="recipeForm" (ngSubmit)="onSubmit()">
-      <div class="row">
+      <!-- <div class="row">
         <div class="col-xs-12">
           <button
             type="submit"
@@ -14,7 +15,7 @@
             Cancel
           </button>
         </div>
-      </div>
+      </div> -->
       <div class="row">
         <div class="col-xs-12">
           <div class="form-group">
@@ -75,6 +76,7 @@
               style="margin-top: 10px"
             >
               <div class="col-xs-8">
+                <label for="name">Ingredient name</label>
                 <input
                   type="text"
                   class="form-control"
@@ -82,13 +84,14 @@
                 />
               </div>
               <div class="col-xs-2">
+                <label for="amount">Quantity</label>
                 <input
                   type="number"
                   class="form-control"
                   formControlName="amount"
                 />
               </div>
-              <div class="col-xs-2">
+              <div class="col-xs-2" style="margin-top: 24px">
                 <button
                   type="button"
                   class="btn btn-danger"
@@ -100,15 +103,37 @@
             </div>
           </div>
           <hr />
-
-          <div class="row">
-            <div class="col-xs-12">
+          <div>
+            <p
+              *ngIf="
+                !recipeForm.valid && (recipeForm.dirty || recipeForm.touched)
+              "
+              style="color: rgba(255, 8, 0, 0.671); font-size: 20px"
+            >
+              Please fill all the required fields
+            </p>
+          </div>
+          <div class="row" style="margin-bottom: 24px">
+            <div class="col-xs-8">
               <button
                 type="button"
                 class="btn btn-success"
                 (click)="onAddIngredient()"
               >
                 Add Ingredient
+              </button>
+            </div>
+            <div class="col-xs-4">
+              <button
+                style="margin-right: 16px"
+                type="submit"
+                class="btn btn-success"
+                [disabled]="!recipeForm.valid"
+              >
+                Save
+              </button>
+              <button type="button" class="btn btn-danger" (click)="onCancel()">
+                Cancel
               </button>
             </div>
           </div>

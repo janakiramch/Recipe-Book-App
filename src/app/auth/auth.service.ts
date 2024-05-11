@@ -127,7 +127,7 @@ export class AuthService {
 
   private handleError(errorRes: HttpErrorResponse) {
     let errorMessage = 'An Unknown Error Occured!';
-
+    console.log(errorRes);
     if (!errorRes.error || !errorRes.error.error) {
       return throwError(() => new Error(errorMessage));
     }
@@ -140,6 +140,9 @@ export class AuthService {
         break;
       case 'INVALID_PASSWORD':
         errorMessage = 'This Password is not correct.';
+        break;
+      case 'INVALID_LOGIN_CREDENTIALS':
+        errorMessage = 'This Email / Password is not correct.';
         break;
     }
     return throwError(() => new Error(errorMessage));
