@@ -1,11 +1,14 @@
 <nav class="navbar navbar-default">
-  <div class="container-fluid">
+  <div
+    class="container-fluid"
+    style="justify-content: unset; flex-wrap: nowrap"
+  >
     <div class="navbar-header">
       <a href="#" class="navbar-brand">Recipe Book</a>
     </div>
 
     <div class="collapse navbar-collapse">
-      <ul class="nav navbar-nav">
+      <ul class="nav navbar-nav" style="display: inline">
         <li routerLinkActive="active" *ngIf="isAuthenticated">
           <a routerLink="/recipes">Recipes</a>
         </li>
@@ -16,7 +19,7 @@
           <a routerLink="/shopping-list">Shopping List</a>
         </li>
       </ul>
-      <ul class="nav navbar-nav navbar-right">
+      <ul class="nav navbar-nav navbar-right" style="display: inline">
         <li *ngIf="isAuthenticated">
           <a style="cursor: pointer" (click)="onLogout()">Logout</a>
         </li>
@@ -35,6 +38,17 @@
           </ul>
         </li>
       </ul>
+
+      <!-- <app-alert
+        *ngIf="dataSaved"
+        message="Data Saved Successfully"
+        (close)="onCloseModal()"
+      ></app-alert>
+      <app-alert
+        *ngIf="dataFetched"
+        message="Data Fetched Successfully"
+        (close)="onCloseModal()"
+      ></app-alert> -->
     </div>
   </div>
 </nav>
