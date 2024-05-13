@@ -1,19 +1,25 @@
 <a
-  style="cursor: pointer"
+  style="cursor: pointer; margin-bottom: 5px"
   [routerLink]="[index]"
   routerLinkActive="active"
   class="list-group-item clearfix"
 >
-  <div class="pull-left">
+  <div class="pull-left" style="width: 70%">
     <h4 class="list-group-item-heading">{{ recipe.name }}</h4>
-    <p class="list-group-item-text">{{ recipe.description }}</p>
+    <p class="list-group-item-text">
+      {{
+        recipe.description
+          .slice(0, 100)
+          .concat(recipe.description.length > 100 ? " ..." : " ")
+      }}
+    </p>
   </div>
   <span class="pull-right">
     <img
       [src]="recipe.imagePath"
       alt=" {{ recipe.name }}"
       class="img-responsive"
-      style="max-height: 50px"
+      style="height: 100px; width: 100px"
     />
   </span>
 </a>
