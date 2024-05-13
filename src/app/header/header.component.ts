@@ -10,9 +10,9 @@ import { Route, Router } from '@angular/router';
 })
 export class HeaderComponent implements OnInit, OnDestroy {
   isAuthenticated = false;
-  // dataSaved = false;
-  // dataFetched = false;
-  // error: string = null;
+  dataSaved = false;
+  dataFetched = false;
+  //error: string = null;
 
   private userSub: Subscription;
   constructor(
@@ -29,26 +29,29 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   onSaveData() {
     this.dataStorageService.storeRecipes();
-    alert('Data Saved Successfully');
+    //alert('Data Saved Successfully');
+    this.dataSaved = !this.dataSaved;
     this.router.navigate(['/recipes']);
-    // this.dataSaved = !this.dataSaved;
   }
 
   onFetchData() {
     this.dataStorageService.fetchRecipes().subscribe();
-    alert('Data Fetched Successfully');
+    //alert('Data Fetched Successfully');
+    this.dataFetched = !this.dataFetched;
     this.router.navigate(['/recipes']);
-
-    // this.dataFetched = !this.dataFetched;
   }
 
   onLogout() {
     this.authService.logout();
   }
 
-  // onCloseModal() {
-  //   this.error = null;
-  // }
+  onCloseDataSaveModal() {
+    this.dataSaved = !this.dataSaved;
+  }
+
+  onCloseDataFetchModal() {
+    this.dataFetched = !this.dataFetched;
+  }
 
   ngOnDestroy() {
     this.userSub.unsubscribe();
